@@ -1,0 +1,20 @@
+---
+title: "Selina Narain DTSC 630 Homework 5"
+output: html_document
+date: "2023-04-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+**Here you will make this a Shiny app. A user will be able to choose type(s) of drv (using a checkboxgroup widget) so the scatter plots with smoother curves will be drawn for any of the drv types (any combinations from “4”, “r”, and “f”). For example, the user can choose to see the plots for all cars, only 4 wheel drive cars, both rear and front wheel drive cars, etc.**
+
+```{r}
+library(shiny)
+library(ggplot2)
+library(shinythemes)
+runApp("/Users/selinanarain/Desktop/DTSC 630/HW5/hw5_shinyapp")
+```

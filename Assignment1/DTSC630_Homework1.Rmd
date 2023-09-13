@@ -1,0 +1,107 @@
+---
+title: "Selina Narain DTSC 630 Homework 1"
+output: word_document
+date: "2023-02-06"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+**The first ten days of rainfall amounts in NYC in 1996 are as follows: 0.1, 0.6, 33.8, 1.9, 9.6, 4.3, 33.7, 0.3, 0.0, 0.1**
+
+**Read the above into a vector.**
+
+```{r question1a}
+rainfallAmount <- c(0.1, 0.6, 33.8, 1.9, 9.6, 4.3, 33.7, 0.3, 0.0, 0.1)
+print(rainfallAmount)
+```
+
+**Calculate the mean and standard deviation of the rainfall amounts.**
+```{r question1b}
+mean(rainfallAmount)
+sd(rainfallAmount)
+```
+
+**Display the cumulative rainfall (“running total”) over the ten days (0.1, 0.7, 34.5, 36.4, ....)**
+```{r question1c}
+cumsum(rainfallAmount)
+```
+
+**Find out the day when the rainfall was the highest, and day when it was the lowest.**
+```{r question1d}
+which.max(rainfallAmount)
+which.min(rainfallAmount)
+```
+
+## Question 2
+**Draw 20 random letters from the upper case alphabet, and sort them alphabetically.**
+
+```{r question2}
+LETTERS
+uppercaseAlphabet <- sample(LETTERS, 20)
+print(uppercaseAlphabet)
+sort(uppercaseAlphabet)
+```
+
+## Question 3
+**This exercise is about matrix, column means, histogram.**
+
+**Construct a matrix with 10 columns and 10 rows with elements generated from uniform random numbers between 0 and 1.**
+```{r question3a}
+matrixNumbers = runif(10*10)
+A <- matrix(matrixNumbers, 10, 10)
+print(A)
+```
+
+**Calculate the 10 column means of the matrix, and the standard deviation of them.**
+```{r question3b}
+colMeans(A)
+sd(colMeans(A))
+```
+
+**Now generate a matrix with 100 columns and 10 rows. Then calculate the 100 column means and plot a frequent diagram (or histogram).**
+```{r question3c}
+matrixNumbers = runif(100*10)
+B <- matrix(matrixNumbers, 10, 100)
+print(B)
+mColB <- colMeans(B)
+print(mColB)
+hist(mColB)
+```
+
+**What shape of the histogram do you expect? Experiment the above with another matrix of 1000 columns and 10 rows.**
+
+The expected shape of the histogram would be a bell curve which would represent a normal distribution.
+
+```{r question3d}
+
+matrixNumbers = runif(1000*10)
+C <- matrix(matrixNumbers, 10, 1000)
+print(C)
+mColC <- colMeans(C)
+print(mColC)
+hist(mColC)
+```
+
+## Question 4
+**Read the rainfall data from Problem 1 into a vector.**
+
+**Produce a subset of the data where rain is larger than 20.**
+```{r question4a}
+R <- rainfallAmount
+R[R > 20]
+```
+
+**What is the mean rainfall for days where the rainfall was at least 4?**
+```{r question4b}
+S <- R[R >= 4]
+mean(S)
+```
+
+**Produce a subset where the rainfall is either exactly 0, or exactly 0.6.**
+```{r question4c}
+T <- R[R == 0 | R == 0.6]
+print(T)
+```

@@ -1,0 +1,13 @@
+name: hw5_shinyapp
+title: hw5_shinyapp
+username:
+account: selinanarain
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8856959
+bundleId: 7092214
+url: https://selinanarain.shinyapps.io/hw5_shinyapp/
+when: 1681531786.32116
+lastSyncTime: 1681531786.32118
+asMultiple: FALSE
+asStatic: FALSE

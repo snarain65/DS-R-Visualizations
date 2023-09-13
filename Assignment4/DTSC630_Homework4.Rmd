@@ -1,0 +1,42 @@
+---
+title: "Selina Narain DTSC 630 Homework 4"
+output: word_document
+date: "2023-03-31"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+**Generate the plot as follows using the mpg data frame, x is displ and y is hwy miles per gallon, with the color of the points from drv, and adding a smoother is included.**
+
+```{r question1}
+library(ggplot2)
+head(mpg)
+
+#ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
+
+#plot mpg data frame, x is displ, y is hwy, color drv, add smoother
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + #create scatterplot
+  geom_smooth(se = FALSE) #trend line over existing plot
+```
+
+## Question 2
+
+**Generate the plot as follows using the mpg data frame. (Hint: you might need to use coord flip(), labs() functions)**
+
+```{r question2}
+#plot mpg data frame
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot() + 
+  coord_flip() + #flip x and y
+  #label graph
+  labs(title = "Highway MPG by car class", 
+       subtitle = "1999-2008", 
+       x = "Class", 
+       y = "Highway MPG", 
+       caption = "Source: http://fueleconomy.gov")
+```

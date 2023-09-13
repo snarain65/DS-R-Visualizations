@@ -1,0 +1,103 @@
+---
+title: "Selina Narain DTSC 630 Homework 3"
+output: word_document
+date: "2023-03-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+**Import the pupae data, then**
+```{r question1}
+# Initialize and read data
+pupae <- read.csv("pupae.csv")
+
+head(pupae)
+summary(pupae)
+```
+
+- Convert the variable ”CO2 treatment” to a factor. Inspect the levels of this factor variable.
+```{r question1a}
+# Make a factor variable of CO2 treatment
+pupae$CO2_treatment <- factor(pupae$CO2_treatment, 
+                              levels=c(280, 400), 
+                              labels=c("280ppm", "400ppm"))
+```
+
+- Make a scatter plot of Frass vs. PupalWeight, with blue solid circles for a CO2 concentration of 280ppm and red for 400ppm. Also add a legend.
+```{r question1b, fig.height=8, fig.width=8}
+# Create palette to store colors to be used in a plot
+palette(c("blue", "red"))
+
+# y ~ x : y for y axis and x for x axis
+# Frass ~ PupalWeight : Frass for y axis and PupalWeight for x axis
+plot(Frass ~ PupalWeight, 
+     main = "Frass vs. PupalWeight",
+     data = pupae, 
+     col = CO2_treatment, 
+     pch = 19)
+
+# Add a legend
+legend("topleft", 
+       title = "CO2 concentration", #title
+       levels(pupae$CO2_treatment), #CO2_treatment levels
+       col = palette(), #corresponding colors
+       pch = 19) #symbols
+```
+
+- Make side-by-side plots (similar to the above figure), one with the ’ambient’ temperature treatment, one with ’elevated’. In order to better compare data among the two treatment groups (that is the reason for drawing the side-by-side plot), make sure that the X and Y axis ranges are the same for both plots (Hint: use xlim and ylim)
+```{r question1c, fig.height=5, fig.width=8}
+#Setting the plot area to a 1 by 2 array. One row of plots, and two columns.
+par(mfrow = c(1, 2))
+
+#Takes subset of ambient data and load into dataframe
+ambient_df <- subset(pupae, T_treatment =="ambient")
+
+#Takes subset of elevated data and load into dataframe
+elevated_df <- subset(pupae, T_treatment =="elevated")
+
+#Left graph
+plot(Frass ~ PupalWeight, 
+     main = "Temperature Treatment = ’ambient’",
+     data = ambient_df, 
+     col = CO2_treatment,
+     pch = 19,
+     xlim = c(0.1, 0.5), 
+     ylim = c(0.5, 3.5))
+
+#Right graph
+plot(Frass ~ PupalWeight, 
+     main = "Temperature Treatment = ’elevated’",
+     data = elevated_df, 
+     col = CO2_treatment, 
+     pch = 19,
+     xlim = c(0.1, 0.5), 
+     ylim = c(0.5, 3.5))
+```
+
+## Question 2
+
+**Sometimes we want to combine the side-by-side plots into a single plot with combinations of symbols and colors to distinguish subgroups. Here you will generate the plot as below. Note that you can either use just plot() function with col and pch option specified for appropriate subgroups without points() functions, or use the approach we have learned (plot + points)**
+
+
+```{r question2, fig.height=8, fig.width=8}
+# Create palette to store colors to be used in a plot
+palette(c("red", "blue"))
+
+# Combine plots for temperature treatment (’ambient’ and ’elevated’) and CO2 concentration (280ppm and 400ppm)
+plot(Frass ~ PupalWeight,
+     main = "Pupae Dataset: Treatment (CO2, Temperature)",
+     data = pupae,
+     col = CO2_treatment,
+     pch = c(3, 15)[as.factor(T_treatment)])
+
+# Add a legend
+legend("topleft", 
+       title = "CO2 - temp",
+       c("280ppm - Tamb", "280ppm - Telev", "400ppm - Tamb", "400ppm - Telev"), #labels
+       col = c(palette()[1], palette()[1], palette()[2],palette()[2]), #corresponding colors
+       pch = c(3, 15, 3, 15)) #symbols
+```

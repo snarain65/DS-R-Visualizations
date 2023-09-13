@@ -1,0 +1,118 @@
+---
+title: "Selina Narain DTSC 630 Homework 2"
+output:
+  word_document:
+    fig_width: 10
+    fig_height: 5
+date: "2023-02-24"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+**The dataframe rainforest from DAAG package has data on several rainforest species.**
+
+
+**Explore the dataframe rainforest using str, summary, table functions.**
+```{r question1a}
+library(DAAG)
+data("rainforest")
+str(rainforest)
+summary(rainforest)
+#table(rainforest)
+```
+
+**From the above exploration, what are the names and numbers of the species in the data set?**
+
+The names and numbers of the species in the data set are:
+Acacia mabellae: 16
+C. fraseri: 12  
+Acmena smithii: 26 
+B. myrtifolia: 11
+
+**Plot two side-by-side graphs: **
+\
+the left of which is \
+– a histogram showing the distribution of the variable dbh (diameter at base height) for all the trees;\
+– superimposed with a density plot (which estimates the number of values per unit interval) using density() function. 
+
+The graph on the right is a similar histogram with fitted density curve for trees of species “Acmena smithii”.
+```{r question1c}
+#Setting the plot area to a 1 by 2 array. One row of plots, and two columns.
+par(mfrow = c(1,2))
+
+#Left graph
+hist(rainforest$dbh,
+     main="Graph 1: All trees",
+     freq = FALSE,
+     xlab = "Diameter at base height (dbh)",
+     col = "azure3",
+     prob = TRUE,
+     border = "black")
+#Density plot
+lines(density(rainforest$dbh), col = 'red', lwd = 1.5)
+
+#Takes subset of Acmena smithii species data and load into dataframe
+df_acmena <- subset(rainforest, species=="Acmena smithii")
+
+#Right graph
+hist(df_acmena$dbh,
+     main="Graph 2: Trees Species “Acmena smithii”",
+     xlab = "Diameter at base height (dbh)",
+     xlim = c(0, 60),
+     col = "azure3",
+     prob = TRUE,
+     border = "black") 
+
+#Density plot
+lines(density(df_acmena$dbh), col = 'red', lwd = 1.5)
+```
+
+## Question 2
+**Use the mtcars dataset, provided by base R to plot 3 scatter plots in the same graph.**
+**The three pair of data are (mpg, drat), (mpg, wt), (mpg, qsec). **
+**You can start with the main plot using plot function (mpg, drat, ...), then add/superimpose the other two plots by points() as follows:**\
+***plot(mpg, drat, ...)*** \
+***points(mpg, wt, ...)*** \
+***points(mpg, qsec, ...)*** \
+
+```{r question2}
+data(mtcars)
+head(mtcars)
+str(mtcars)
+summary(mtcars)
+
+#plot(mtcars$drat)
+#plot(mtcars$wt)
+#plot(mtcars$qsec)
+
+#Main plot using plot function (mpg, drat)
+plot(mtcars$mpg,
+     mtcars$drat, 
+     main = "Scatter Plot (mpg, drat), (mpg, wt), (mpg, qsec)", 
+     xlab = "Miles per gallon (mpg)", 
+     ylab = "Rear axle ratio (drat)",
+     xlim = c(0, 35),
+     ylim = c(0, 25),
+     pch = 16,
+     col = "deeppink3")
+#Add/superimpose the other two plots by points() for (mpg, wt), (mpg, qsec)
+points(mtcars$mpg,
+       mtcars$wt, 
+       pch = 16,
+       col = "yellowgreen")
+points(mtcars$mpg,
+       mtcars$qsec, 
+       pch = 16,
+       col = "deepskyblue")
+
+#Creating legend (colors, symbols, labels)
+leg_cols <- c("deeppink3", "yellowgreen", "deepskyblue")
+leg_sym <- c(16, 16, 16)
+leg_lab <- c("(mpg, drat)", "(mpg, wt)", "(mpg, qsec)")
+
+legend(x = 0, y = 25, col = leg_cols, pch = leg_sym, legend = leg_lab, title = "Legend")
+```
+
